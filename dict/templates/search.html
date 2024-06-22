@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="{% url 'search' %}" method="get">
+  <div class="input-group">
+    <input type="text" name="search" class="form-control" placeholder="Enter Word" value="{{ word }}">
+    <button class="btn btn-success" type="submit">Search</button>
+  </div>
+</form>
+
+{% if error %}
+  <p style="color: red;">{{ error }}</p>
+{% elif meaning %}
+  <h2>Meaning of "{{ word }}":</h2>
+  <ul>
+    {% for part_of_speech, definitions in meaning.items %}
+      <li><strong>{{ part_of_speech }}:</strong>
+        <ul>
+          {% for definition in definitions %}
+            <li>{{ definition }}</li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% endblock %}
